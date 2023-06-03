@@ -16,6 +16,8 @@ resource "azurerm_kubernetes_cluster" "this" {
     client_secret = var.client_secret
   }
 
+  kubernetes_version = 1.26
+
   role_based_access_control_enabled = true
 
   tags = var.tags
