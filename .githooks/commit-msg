@@ -1,0 +1,13 @@
+#!/bin/bash
+
+commit_message=$(cat "$1")
+
+commit_strings='(#none|#patch|#minor|#major)'
+commit_regex="^$commit_strings"
+
+if [[ ! "$commit_message" =~ $commit_regex ]]; then
+   echo -e "\e[31mCommit message must start with #none, #patch, #minor or #major to perform autotagging...\e[0m"
+   exit 1
+fi
+
+exit 0
