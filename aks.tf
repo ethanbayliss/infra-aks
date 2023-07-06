@@ -7,6 +7,9 @@ resource "azurerm_kubernetes_cluster" "this" {
   private_cluster_enabled = true
   private_dns_zone_id     = azurerm_dns_zone.cluster.id
 
+  automatic_channel_upgrade = none
+  kubernetes_version        = var.kubernetes_version
+
   default_node_pool {
     name            = var.default_node_pool.name
     node_count      = var.default_node_pool.node_count
