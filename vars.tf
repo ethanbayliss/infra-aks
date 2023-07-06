@@ -27,7 +27,7 @@ variable "default_node_pool" {
   }
 }
 
-var "cluster_domain_name" {
+variable "cluster_domain_name" {
   type    = string
   default = "k8s.ethan.network"
 }
