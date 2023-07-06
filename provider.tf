@@ -10,14 +10,6 @@ variable "tenant_id" {
 variable "subscription_id" {
 }
 
-variable "tags" {
-  default = {
-    iac  = "terraform"
-    iac_repo = "https://github.com/ethanbayliss/infra-aks"
-    environment = "sandbox"
-  }
-}
-
 terraform {
   required_providers {
     azurerm = {

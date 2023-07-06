@@ -5,10 +5,10 @@ resource "azurerm_kubernetes_cluster" "this" {
   dns_prefix          = "${terraform.workspace}-k8s"
 
   default_node_pool {
-    name            = "burstable"
-    node_count      = 2
-    vm_size         = "Standard_B4ms"
-    os_disk_size_gb = 60
+    name            = var.default_node_pool.name
+    node_count      = var.default_node_pool.node_count
+    vm_size         = var.default_node_pool.vm_size
+    os_disk_size_gb = var.default_node_pool.os_disk_size_gb
   }
 
   service_principal {
