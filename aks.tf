@@ -1,8 +1,11 @@
 resource "azurerm_kubernetes_cluster" "this" {
-  name                = "${terraform.workspace}-aks"
-  location            = azurerm_resource_group.default.location
-  resource_group_name = azurerm_resource_group.default.name
-  dns_prefix          = "${terraform.workspace}-k8s"
+  name                = "${terraform.workspace}"
+  location            = azurerm_resource_group.this.location
+  resource_group_name = azurerm_resource_group.this.name
+
+  dns_prefix              = "${terraform.workspace}-k8s-cluster"
+  private_cluster_enabled = true
+  private_dns_zone_id     = azurerm_dns_zone.cluster.id
 
   default_node_pool {
     name            = var.default_node_pool.name

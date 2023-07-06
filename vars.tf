@@ -7,7 +7,7 @@ variable "tags" {
 }
 
 variable "location" {
-  type = string
+  type    = string
   default = "Australia East"
 }
 
@@ -25,4 +25,9 @@ variable "default_node_pool" {
     vm_size         = "Standard_B4ms"
     os_disk_size_gb = 60
   }
+}
+
+var "cluster_domain_name" {
+  type    = string
+  default = "k8s.ethan.network"
 }
