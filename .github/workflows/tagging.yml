@@ -23,3 +23,4 @@ jobs:
         MINOR_STRING_TOKEN: "#minor"
         PATCH_STRING_TOKEN: "#patch"
         NONE_STRING_TOKEN: "#none"
+        GITHUB_TOKEN: ${{ secrets.PAT_TAGGING_ACTION }}
