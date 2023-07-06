@@ -12,7 +12,12 @@ variable "location" {
 }
 
 variable "default_node_pool" {
-  type = object
+  type = object({
+    name            = string
+    node_count      = number
+    vm_size         = string
+    os_disk_size_gb = number
+  })
 
   default = {
     name            = "burstable"
