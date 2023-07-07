@@ -27,11 +27,6 @@ variable "default_node_pool" {
   }
 }
 
-variable "cluster_domain_name" {
-  type    = string
-  default = "k8s.ethan.network"
-}
-
 # See https://learn.microsoft.com/en-us/azure/aks/supported-kubernetes-versions?tabs=azure-cli#aks-kubernetes-release-calendar
 variable "kubernetes_version" {
   type    = string
