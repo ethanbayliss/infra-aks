@@ -30,9 +30,10 @@ resource "azurerm_virtual_machine" "vpn" {
   }
 
   storage_os_disk {
-    name          = "os"
+    name          = "${terraform.workspace}-${local.instance_name}-os"
     create_option = "FromImage"
   }
+  delete_os_disk_on_termination = true
 
   os_profile_linux_config {
     disable_password_authentication = true
