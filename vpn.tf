@@ -11,7 +11,7 @@ resource "azurerm_virtual_machine" "vpn" {
   name                = "${terraform.workspace}-${local.instance_name}"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
-  vm_size             = "Standard_A1_v2"
+  vm_size             = "Standard_B1s"
 
   network_interface_ids = [
     azurerm_network_interface.vpn_public.id,
