@@ -69,14 +69,15 @@ resource "azurerm_network_security_group" "vpn_public_sg" {
   location            = azurerm_resource_group.this.location
 
   security_rule {
-    name                   = "ssh"
-    priority               = 100
-    direction              = "Inbound"
-    access                 = "Allow"
-    protocol               = "Tcp"
-    source_port_range      = "*"
-    destination_port_range = "22"
-    source_address_prefix  = local.admin_ip
+    name                       = "ssh"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = local.admin_ip
+    destination_address_prefix = "*"
   }
 }
 
