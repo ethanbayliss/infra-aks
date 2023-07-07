@@ -51,7 +51,15 @@ resource "azurerm_network_interface" "vpn_public" {
     name                          = "default"
     subnet_id                     = azurerm_subnet.public.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.vpn.id
   }
+}
+
+resource "azurerm_public_ip" "vpn" {
+  name                = "${terraform.workspace}-vpn-ip"
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+  allocation_method   = "Dynamic"
 }
 
 resource "azurerm_network_interface" "vpn_private" {
