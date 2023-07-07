@@ -33,7 +33,7 @@ resource "azurerm_public_ip" "nat" {
   name                = "${terraform.workspace}-nat-ip"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static" # must be static for Standard sku
   sku                 = "Standard" # must match NAT gateway sku
 }
 
