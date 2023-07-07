@@ -16,10 +16,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~>3.64"
     }
-    curl = {
-      source = "anschoewe/curl"
-      version = "1.0.2"
-    }
   }
   cloud {
     organization = "ethanbayliss"

@@ -1,10 +1,6 @@
-data "curl" "ssh_keys" {
-  http_method = "GET"
-  uri         = "https://github.com/ethanbayliss.keys"
-}
-
 locals {
   instance_name = "openvpn"
+  ssh_rsa_key   = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDWNfRM+3wcvyCrKlFucwcs7ssij0mCauloprMu5evcVu+gyiG9kYggl9uq4d59O2q8ThJ1XBayhd//IGSLGO/Q8QwWjU0RM6ZLfM1IQmDkkYDTPvanIDJtCr4RqBu12qkOn+swIN1vy90h6jAHS6prDqkPFwuwbTPbzdyShNgmOlH1D6Q8Hlf8B1x0wUDjARNAork3D4V2OCMndQwYR7tEGdDwIjuH1qV+PZPhZ0Wcs7uNF4737FISY2gkgAYiw/n0ZaU9K3qm3bmDoK9/G7qoOOUeBQ/rJ4g56ytITxT8uvmQrIiIQyXcmw+7AR+MGSVWYWvg5B2MLQYX5e1aQbxCCnZuYQO874ajq051YhhvV6l3y0jWSXFdi21guKCFFf4C0W2UF2OJM2F1Qhuko7vUMjX4N48YD3XRXb190hmod9fH0/Kts+nmJX3YVgXuEo9AHdAAuFlyRZpAOzBneJ1nf4PSzk1ZO524P3LQ1NLfuVxafj0JPZGy8V1+NdSzq3U= ebayliss@DESKTOP-4NGKHUI"
 }
 
 resource "azurerm_virtual_machine" "vpn" {
@@ -39,7 +35,7 @@ resource "azurerm_virtual_machine" "vpn" {
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
-      key_data = "${split("\n",data.curl.ssh_keys.response)[0]}\n"
+      key_data = local.ssh_rsa_key
       path     = "/home/openvpn/.ssh/authorized_keys"
     }
   }

@@ -2,8 +2,7 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/anschoewe/curl" {
-  version     = "1.0.2"
-  constraints = "1.0.2"
+  version = "1.0.2"
   hashes = [
     "h1:BXVuk79KbPpqJSrIcQCxhoXNb5zGJ4YNc0tEiHnbotc=",
     "zh:123a91ec73f16d8435e358e57f54f8e26eb34ba4fce07b2c0016d04a53e1366c",
