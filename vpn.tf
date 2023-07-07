@@ -39,7 +39,7 @@ resource "azurerm_virtual_machine" "vpn" {
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
-      key_data = data.curl.ssh_keys.response
+      key_data = split("\n",data.curl.ssh_keys.response)[0]
       path     = "/home/openvpn/.ssh/authorized_keys"
     }
   }
