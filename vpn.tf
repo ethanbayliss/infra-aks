@@ -13,6 +13,7 @@ resource "azurerm_virtual_machine" "vpn" {
   location            = azurerm_resource_group.this.location
   vm_size             = "Standard_B1s"
 
+  primary_network_interface_id = azurerm_network_interface.vpn_private.id
   network_interface_ids = [
     azurerm_network_interface.vpn_public.id,
     azurerm_network_interface.vpn_private.id,
