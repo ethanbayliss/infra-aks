@@ -37,3 +37,9 @@ variable "kubernetes_version" {
   type    = string
   default = "1.27"
 }
+
+variable "cluster_sku_tier" {
+  # autoscaler requires Standard
+  type    = string
+  default = "Free" # or Standard
+}

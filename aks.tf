@@ -1,5 +1,6 @@
 resource "azurerm_kubernetes_cluster" "this" {
   name                = "${terraform.workspace}"
+  sku_tier            = var.cluster_sku_tier
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
