@@ -7,6 +7,7 @@ resource "azurerm_virtual_machine" "vpn" {
   name                = openvpn
   resource_group_name = azurerm_resource_group.this
   location            = azurerm_resource_group.this.location
+  vm_size             = "Standard_A1_v2"
 
   network_interface_ids = []
 
