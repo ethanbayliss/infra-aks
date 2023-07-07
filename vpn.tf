@@ -20,8 +20,7 @@ resource "azurerm_virtual_machine" "vpn" {
 
   storage_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "20.04-LTS"
+    sku       = "22_04-lts-gen2"
     version   = "latest"
   }
 
