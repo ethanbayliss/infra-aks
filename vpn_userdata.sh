@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 apt-get update
 curl -O https://raw.githubusercontent.com/angristan/openvpn-install/80feebed16b3baa5979f764ee3272443f2fe08e6/openvpn-install.sh
 
