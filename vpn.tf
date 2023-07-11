@@ -1,7 +1,3 @@
-locals {
-  vpn_type = "wireguard"
-}
-
 variable "ssh_rsa_key" {
   type = string
 }
@@ -14,13 +10,13 @@ resource "random_password" "vpn_password" {
 }
 
 resource "azurerm_linux_virtual_machine" "vpn" {
-  name                = "${terraform.workspace}-${local.vpn_type}"
+  name                = "${terraform.workspace}-vpn"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   size                = "Standard_B1s"
   user_data           = sensitive(base64encode(templatefile("${path.module}/vpn_userdata.sh",{
     ENDPOINT = azurerm_public_ip.vpn.ip_address,
-    CLIENT   = local.vpn_type,
+    CLIENT   = "vpn",
     PASS     = random_password.vpn_password.result
   })))
 
@@ -36,9 +32,9 @@ resource "azurerm_linux_virtual_machine" "vpn" {
     version   = "latest"
   }
 
-  admin_username = local.vpn_type
+  admin_username = "vpn"
   admin_ssh_key {
-    username   = local.vpn_type
+    username   = "vpn"
     public_key = var.ssh_rsa_key
   }
 
@@ -51,7 +47,7 @@ resource "azurerm_linux_virtual_machine" "vpn" {
 }
 
 resource "azurerm_network_interface" "vpn_public" {
-  name                = "${terraform.workspace}-${local.vpn_type}-public-nic"
+  name                = "${terraform.workspace}-vpn-public-nic"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
 
@@ -100,7 +96,7 @@ resource "azurerm_network_interface_security_group_association" "vpn_public_sg" 
 }
 
 resource "azurerm_network_interface" "vpn_private" {
-  name                = "${terraform.workspace}-${local.vpn_type}-private-nic"
+  name                = "${terraform.workspace}-vpn-private-nic"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
 
