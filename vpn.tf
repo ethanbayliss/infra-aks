@@ -20,7 +20,7 @@ resource "azurerm_linux_virtual_machine" "vpn" {
   size                = "Standard_B1s"
   user_data           = templatefile("${path.module}/vpn_userdata.sh",{
     ENDPOINT = azurerm_public_ip.vpn.ip_address,
-    CLIENT   = var.vpn_type,
+    CLIENT   = local.vpn_type,
     PASSWORD = random_password.vpn_password.result
   })
 
@@ -36,9 +36,9 @@ resource "azurerm_linux_virtual_machine" "vpn" {
     version   = "latest"
   }
 
-  admin_username = var.vpn_type
+  admin_username = local.vpn_type
   admin_ssh_key {
-    username   = var.vpn_type
+    username   = local.vpn_type
     public_key = var.ssh_rsa_key
   }
 
