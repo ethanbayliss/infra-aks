@@ -1,8 +1,12 @@
 locals {
   instance_name = "openvpn"
-  # ssh-ed25519 not supported
-  ssh_rsa_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDWNfRM+3wcvyCrKlFucwcs7ssij0mCauloprMu5evcVu+gyiG9kYggl9uq4d59O2q8ThJ1XBayhd//IGSLGO/Q8QwWjU0RM6ZLfM1IQmDkkYDTPvanIDJtCr4RqBu12qkOn+swIN1vy90h6jAHS6prDqkPFwuwbTPbzdyShNgmOlH1D6Q8Hlf8B1x0wUDjARNAork3D4V2OCMndQwYR7tEGdDwIjuH1qV+PZPhZ0Wcs7uNF4737FISY2gkgAYiw/n0ZaU9K3qm3bmDoK9/G7qoOOUeBQ/rJ4g56ytITxT8uvmQrIiIQyXcmw+7AR+MGSVWYWvg5B2MLQYX5e1aQbxCCnZuYQO874ajq051YhhvV6l3y0jWSXFdi21guKCFFf4C0W2UF2OJM2F1Qhuko7vUMjX4N48YD3XRXb190hmod9fH0/Kts+nmJX3YVgXuEo9AHdAAuFlyRZpAOzBneJ1nf4PSzk1ZO524P3LQ1NLfuVxafj0JPZGy8V1+NdSzq3U= ebayliss@DESKTOP-4NGKHUI"
-  admin_ip    = "159.196.85.197/32"
+}
+
+variable "ssh_rsa_key" {
+  type = string
+}
+variable "admin_ip" {
+  type = string
 }
 
 resource "azurerm_virtual_machine" "vpn" {
@@ -38,7 +42,7 @@ resource "azurerm_virtual_machine" "vpn" {
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
-      key_data = local.ssh_rsa_key
+      key_data = var.ssh_rsa_key
       path     = "/home/openvpn/.ssh/authorized_keys"
     }
   }
@@ -77,7 +81,7 @@ resource "azurerm_network_security_group" "vpn_public_sg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = local.admin_ip
+    source_address_prefix      = var.admin_ip
     destination_address_prefix = "*"
   }
 }
