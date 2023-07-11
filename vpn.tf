@@ -1,12 +1,9 @@
 variable "ssh_rsa_key" {
   type = string
 }
+
 variable "admin_ip" {
   type = string
-}
-
-resource "random_password" "vpn_password" {
-  length = 16
 }
 
 resource "azurerm_linux_virtual_machine" "vpn" {
@@ -14,11 +11,10 @@ resource "azurerm_linux_virtual_machine" "vpn" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   size                = "Standard_B1s"
-  user_data           = sensitive(base64encode(templatefile("${path.module}/vpn_userdata.sh",{
+  user_data           = base64encode(templatefile("${path.module}/vpn_userdata.sh",{
     ENDPOINT = azurerm_public_ip.vpn.ip_address,
-    CLIENT   = "vpn",
-    PASS     = random_password.vpn_password.result
-  })))
+    CLIENT   = "vpn"
+  }))
 
   network_interface_ids = [
     azurerm_network_interface.vpn_public.id,

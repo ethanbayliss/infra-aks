@@ -16,10 +16,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~>3.64"
     }
-    random = {
-      source = "hashicorp/random"
-      version = "3.5.1"
-    }
   }
   cloud {
     organization = "ethanbayliss"
