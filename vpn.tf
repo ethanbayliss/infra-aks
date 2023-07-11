@@ -88,8 +88,6 @@ resource "azurerm_network_security_group" "vpn_public_sg" {
 resource "azurerm_network_interface_security_group_association" "vpn_public_sg" {
   network_interface_id      = azurerm_network_interface.vpn_public.id
   network_security_group_id = azurerm_network_security_group.vpn_public_sg.id
-
-  tags = var.tags
 }
 
 resource "azurerm_network_interface" "vpn_private" {
