@@ -27,6 +27,7 @@ resource "azurerm_linux_virtual_machine" "vpn" {
     version   = "latest"
   }
 
+  admin_username = "openvpn"
   admin_ssh_key {
     username   = "openvpn"
     public_key = var.ssh_rsa_key
