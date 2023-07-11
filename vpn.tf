@@ -102,3 +102,7 @@ resource "azurerm_network_interface" "vpn_private" {
     private_ip_address_allocation = "Dynamic"
   }
 }
+
+output "vpn_public_ip" {
+  value = azurerm_public_ip.vpn.ip_address
+}
