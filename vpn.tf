@@ -21,7 +21,7 @@ resource "azurerm_linux_virtual_machine" "vpn" {
   user_data           = templatefile("${path.module}/vpn_userdata.sh",{
     ENDPOINT = azurerm_public_ip.vpn.ip_address,
     CLIENT   = local.vpn_type,
-    PASSWORD = random_password.vpn_password.result
+    PASS     = random_password.vpn_password.result
   })
 
   network_interface_ids = [
