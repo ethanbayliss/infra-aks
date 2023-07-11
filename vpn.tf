@@ -37,6 +37,8 @@ resource "azurerm_linux_virtual_machine" "vpn" {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
+
+  tags = var.tags
 }
 
 resource "azurerm_network_interface" "vpn_public" {
@@ -45,11 +47,13 @@ resource "azurerm_network_interface" "vpn_public" {
   location            = azurerm_resource_group.this.location
 
   ip_configuration {
-    name                          = "default"
+    name                          = "public"
     subnet_id                     = azurerm_subnet.public.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.vpn.id
   }
+
+  tags = var.tags
 }
 
 resource "azurerm_public_ip" "vpn" {
@@ -57,6 +61,8 @@ resource "azurerm_public_ip" "vpn" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   allocation_method   = "Dynamic"
+
+  tags = var.tags
 }
 
 resource "azurerm_network_security_group" "vpn_public_sg" {
@@ -75,11 +81,15 @@ resource "azurerm_network_security_group" "vpn_public_sg" {
     source_address_prefix      = var.admin_ip
     destination_address_prefix = "*"
   }
+
+  tags = var.tags
 }
 
 resource "azurerm_network_interface_security_group_association" "vpn_public_sg" {
   network_interface_id      = azurerm_network_interface.vpn_public.id
   network_security_group_id = azurerm_network_security_group.vpn_public_sg.id
+
+  tags = var.tags
 }
 
 resource "azurerm_network_interface" "vpn_private" {
@@ -88,10 +98,12 @@ resource "azurerm_network_interface" "vpn_private" {
   location            = azurerm_resource_group.this.location
 
   ip_configuration {
-    name                          = "default"
+    name                          = "private"
     subnet_id                     = azurerm_subnet.private.id
     private_ip_address_allocation = "Dynamic"
   }
+
+  tags = var.tags
 }
 
 output "vpn_public_ip" {
