@@ -18,11 +18,11 @@ resource "azurerm_linux_virtual_machine" "vpn" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   size                = "Standard_B1s"
-  user_data           = templatefile("${path.module}/vpn_userdata.sh",{
+  user_data           = sensitive(base64encode(templatefile("${path.module}/vpn_userdata.sh",{
     ENDPOINT = azurerm_public_ip.vpn.ip_address,
     CLIENT   = local.vpn_type,
     PASS     = random_password.vpn_password.result
-  })
+  })))
 
   network_interface_ids = [
     azurerm_network_interface.vpn_public.id,
