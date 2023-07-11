@@ -114,5 +114,5 @@ resource "azurerm_network_interface" "vpn_private" {
 }
 
 output "vpn_public_ip" {
-  value = azurerm_public_ip.vpn.ip_address
+  value = azurerm_linux_virtual_machine.vpn.public_ip_addresses[0]
 }
