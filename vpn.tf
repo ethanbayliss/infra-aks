@@ -9,42 +9,32 @@ variable "admin_ip" {
   type = string
 }
 
-resource "azurerm_virtual_machine" "vpn" {
+resource "azurerm_linux_virtual_machine" "vpn" {
   name                = "${terraform.workspace}-${local.instance_name}"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
-  vm_size             = "Standard_B1s"
+  size                = "Standard_B1s"
 
-  primary_network_interface_id = azurerm_network_interface.vpn_private.id
   network_interface_ids = [
     azurerm_network_interface.vpn_public.id,
     azurerm_network_interface.vpn_private.id,
   ]
 
-  storage_image_reference {
+  source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts-gen2"
     version   = "latest"
   }
 
-  os_profile {
-    computer_name  = "openvpn"
-    admin_username = "openvpn"
+  admin_ssh_key {
+    username   = "openvpn"
+    public_key = var.ssh_rsa_key
   }
 
-  storage_os_disk {
-    name          = "${terraform.workspace}-${local.instance_name}-os"
-    create_option = "FromImage"
-  }
-  delete_os_disk_on_termination = true
-
-  os_profile_linux_config {
-    disable_password_authentication = true
-    ssh_keys {
-      key_data = var.ssh_rsa_key
-      path     = "/home/openvpn/.ssh/authorized_keys"
-    }
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
 }
 
