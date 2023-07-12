@@ -25,3 +25,17 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   tags = var.tags
 }
+
+resource "azurerm_private_endpoint" "kubernetes_api" {
+  name                = "${terraform.workspace}-kubernetes_api"
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+
+  subnet_id           = azurerm_subnet.private.id
+
+  private_service_connection {
+    name                           = "${terraform.workspace}-kubernetes-api-privateserviceconnection"
+    private_connection_resource_id = azurerm_kubernetes_cluster.this.id
+    is_manual_connection           = false
+  }
+}
