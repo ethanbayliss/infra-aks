@@ -12,8 +12,8 @@ resource "azurerm_linux_virtual_machine" "vpn" {
   location            = azurerm_resource_group.this.location
   size                = "Standard_B1s"
   user_data           = base64encode(templatefile("${path.module}/vpn_userdata.sh",{
-    ENDPOINT = azurerm_public_ip.vpn.ip_address,
-    CLIENT   = "vpn"
+    PUBLIC_IP = azurerm_public_ip.vpn.ip_address,
+    CLIENT    = "vpn"
   }))
 
   network_interface_ids = [
