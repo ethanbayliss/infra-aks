@@ -16,10 +16,11 @@ resource "azurerm_kubernetes_cluster" "this" {
     os_disk_size_gb = var.default_node_pool.os_disk_size_gb
   }
 
-  service_principal {
-    client_id     = var.client_id
-    client_secret = var.client_secret
+  identity {
+    type = "SystemAssigned" 
   }
+  workload_identity_enabled = true
+  oidc_issuer_enabled       = true
 
   role_based_access_control_enabled = true
 
