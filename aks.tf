@@ -26,7 +26,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   tags = var.tags
 }
 
-resource "azurerm_private_endpoint" "kubernetes_api" {
+resource "azurerm_private_endpoint" "kubernetes-api" {
   name                = "${terraform.workspace}-kubernetes_api"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
@@ -37,5 +37,7 @@ resource "azurerm_private_endpoint" "kubernetes_api" {
     name                           = "${terraform.workspace}-kubernetes-api-privateserviceconnection"
     private_connection_resource_id = azurerm_kubernetes_cluster.this.id
     is_manual_connection           = false
+    # https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview#private-link-resource
+    subresource_names              = ["management"]
   }
 }
