@@ -82,6 +82,17 @@ resource "azurerm_network_security_group" "vpn_public_sg" {
     source_address_prefix      = var.admin_ip
     destination_address_prefix = "*"
   }
+  security_rule {
+    name                       = "ovpn"
+    priority                   = 101
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Udp"
+    source_port_range          = "*"
+    destination_port_range     = "1194"
+    source_address_prefix      = var.admin_ip
+    destination_address_prefix = "*"
+  }
 
   tags = var.tags
 }
