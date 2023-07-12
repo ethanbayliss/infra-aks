@@ -26,7 +26,8 @@ resource "azurerm_kubernetes_cluster" "this" {
   tags = var.tags
 }
 
-resource "azurerm_private_endpoint" "kubernetes-api" {
+# expose the kubernetes api to the private subnet
+resource "azurerm_private_endpoint" "kubernetes_api" {
   name                = "${terraform.workspace}-kubernetes_api"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
