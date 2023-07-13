@@ -42,4 +42,6 @@ resource "azurerm_private_endpoint" "kubernetes_api" {
     # https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview#private-link-resource
     subresource_names              = ["management"]
   }
+
+  tags = var.tags
 }
