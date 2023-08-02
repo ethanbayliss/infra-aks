@@ -4,7 +4,7 @@ resource "azurerm_linux_virtual_machine" "vpn" {
   location            = var.az_location
   size                = "Standard_B1s"
   user_data           = base64encode(templatefile("${path.module}/src/vpn_userdata.sh.tpl",{
-    TOKEN = "abc"
+    TOKEN = var.openvpn_connector_token
   }))
 
   network_interface_ids = [

@@ -15,6 +15,10 @@ variable "openvpn_region_id" {
   type = string
 }
 
+variable "openvpn_connector_token" {
+  type = string
+}
+
 variable "ssh_admin_ip" {
   type    = string
   default = "127.0.0.1/32"
