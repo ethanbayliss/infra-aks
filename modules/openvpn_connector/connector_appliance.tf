@@ -43,7 +43,7 @@ resource "azurerm_network_interface" "vpn_public" {
 
   ip_configuration {
     name                          = "public"
-    subnet_id                     = var.public_subnet_id
+    subnet_id                     = var.public_subnet.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.vpn.id
   }
@@ -95,7 +95,7 @@ resource "azurerm_network_interface" "vpn_private" {
 
   ip_configuration {
     name                          = "private"
-    subnet_id                     = var.private_subnet_id
+    subnet_id                     = var.private_subnet.id
     private_ip_address_allocation = "Dynamic"
   }
 

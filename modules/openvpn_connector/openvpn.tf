@@ -1,11 +1,15 @@
-# openvpncloud_connector "this" {
+# provider is too buggy TODO fix when provider gets some love
+
+# resource openvpncloud_network "this" {
 #   name = var.name
 
-#   network_item_id   = 
-#   network_item_type = "NETWORK"
-#   vpn_region_id     = var.vpn_region_id
-# }
+#   default_connector {
+#     name          = "${var.name}-connector"
+#     vpn_region_id = var.openvpn_region_id
+#   }
 
-# openvpncloud_network "this" {
-
+#   default_route {
+#     value = var.private_subnet.address_prefixes[0]
+#     type  = "IP_V4"
+#   }
 # }

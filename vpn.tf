@@ -21,8 +21,8 @@ module "openvpn_connector" {
     version   = "latest"
   }
 
-  public_subnet_id  = azurerm_subnet.public.id
-  private_subnet_id = azurerm_subnet.private.id
+  public_subnet  = azurerm_subnet.public
+  private_subnet = azurerm_subnet.private
 
   tags = var.tags
 }

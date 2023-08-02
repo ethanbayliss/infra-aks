@@ -12,7 +12,7 @@ variable "az_location" {
 }
 
 variable "openvpn_region_id" {
-  type    = string
+  type = string
 }
 
 variable "ssh_admin_ip" {
@@ -38,12 +38,10 @@ variable "source_image_reference" {
   }
 }
 
-variable "public_subnet_id" {
-  type = string
+variable "public_subnet" {
 }
 
-variable "private_subnet_id" {
-  type = string
+variable "private_subnet" {
 }
 
 variable "tags" {
