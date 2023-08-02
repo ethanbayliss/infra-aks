@@ -14,11 +14,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.64"
-    }
-    helm = {
-      source = "hashicorp/helm"
-      version = "~>2.10"
+      version = "~> 3.67"
     }
   }
   cloud {
@@ -38,8 +34,4 @@ provider "azurerm" {
   client_secret   = var.client_secret
   tenant_id       = var.tenant_id
   subscription_id = var.subscription_id
-}
-
-provider "helm" {
-  # Configuration options
 }

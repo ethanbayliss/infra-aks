@@ -3,7 +3,13 @@ variable "ssh_rsa_key" {
 }
 
 variable "admin_ip" {
-  type = string
+  type    = string
+  default = "127.0.0.1/32"
+}
+
+variable "openvpn_connector_token" {
+  sensitive = true
+  type      = string
 }
 
 resource "azurerm_linux_virtual_machine" "vpn" {
@@ -11,9 +17,8 @@ resource "azurerm_linux_virtual_machine" "vpn" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   size                = "Standard_B1s"
-  user_data           = base64encode(templatefile("${path.module}/src/vpn_userdata.sh",{
-    PUBLIC_IP = azurerm_public_ip.vpn.ip_address,
-    CLIENT    = "vpn"
+  user_data           = base64encode(templatefile("${path.module}/src/vpn_userdata.sh.tpl",{
+    TOKEN = var.openvpn_connector_token
   }))
 
   network_interface_ids = [
@@ -82,17 +87,6 @@ resource "azurerm_network_security_group" "vpn_public_sg" {
     source_address_prefix      = var.admin_ip
     destination_address_prefix = "*"
   }
-  security_rule {
-    name                       = "ovpn"
-    priority                   = 101
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Udp"
-    source_port_range          = "*"
-    destination_port_range     = "1194"
-    source_address_prefix      = var.admin_ip
-    destination_address_prefix = "*"
-  }
 
   tags = var.tags
 }
@@ -106,6 +100,9 @@ resource "azurerm_network_interface" "vpn_private" {
   name                = "${terraform.workspace}-vpn-private-nic"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
+
+  # important for vpn usage
+  enable_ip_forwarding = true
 
   ip_configuration {
     name                          = "private"
