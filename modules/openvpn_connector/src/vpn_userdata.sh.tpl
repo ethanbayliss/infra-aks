@@ -20,5 +20,6 @@ iptables -t nat -A POSTROUTING -o $IF -j MASQUERADE
 ip6tables -t nat -A POSTROUTING -o $IF -j MASQUERADE
 DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
 
-# infra-aks-connector01 token in CloudConnexa 
+# token in CloudConnexa 
+# https://github.com/OpenVPN/openvpn-connector-setup
 openvpn-connector-setup --token ${TOKEN}
