@@ -50,3 +50,7 @@ variable "address_space" {
     public_subnet  = "10.69.16.0/21"
   }
 }
+
+variable "public_dns_zone" {
+  default = "e10.au"
+}
