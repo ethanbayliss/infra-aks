@@ -11,18 +11,18 @@ resource "azurerm_linux_virtual_machine_scale_set" "vpn-connector" {
 
   network_interface {
     name                 = "vpn-connector-private"
-    primary              = true
+    primary              = false
     enable_ip_forwarding = true
     ip_configuration {
       name      = "private"
-      primary   = true
+      primary   = false
       subnet_id = var.private_subnet.id
     }
   }
 
   network_interface {
     name                      = "vpn-connector-public"
-    primary                   = false
+    primary                   = true
     enable_ip_forwarding      = true
     network_security_group_id = azurerm_network_security_group.vpn_public_sg.id
     ip_configuration {
