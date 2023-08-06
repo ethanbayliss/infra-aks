@@ -1,16 +1,39 @@
-resource "azurerm_linux_virtual_machine" "vpn" {
-  name                = "${terraform.workspace}-vpn"
-  resource_group_name = var.resource_group_name
-  location            = var.az_location
-  size                = "Standard_B1s"
-  user_data           = base64encode(templatefile("${path.module}/src/vpn_userdata.sh.tpl",{
-    TOKEN = var.openvpn_connector_token
-  }))
+resource "azurerm_linux_virtual_machine_scale_set" "vpn-connector" {
+  name                 = "${terraform.workspace}-vpn-connector"
+  resource_group_name  = var.resource_group_name
+  location             = var.az_location
+  computer_name_prefix = "vpn-connector"
 
-  network_interface_ids = [
-    azurerm_network_interface.vpn_public.id,
-    azurerm_network_interface.vpn_private.id,
-  ]
+  sku       = "Standard_B1s"
+  instances = 1
+
+  user_data = base64encode(templatefile("${path.module}/src/vpn_userdata.sh.tpl",{TOKEN = var.openvpn_connector_token}))
+
+  network_interface {
+    name                 = "vpn-connector-private"
+    primary              = true
+    enable_ip_forwarding = true
+    ip_configuration {
+      name      = "private"
+      primary   = true
+      subnet_id = var.private_subnet.id
+    }
+  }
+
+  network_interface {
+    name                      = "vpn-connector-public"
+    primary                   = false
+    enable_ip_forwarding      = true
+    network_security_group_id = azurerm_network_security_group.vpn_public_sg.id
+    ip_configuration {
+      name      = "public"
+      primary   = true
+      subnet_id = var.public_subnet.id
+      public_ip_address  {
+        name = "public"
+      }
+    }
+  }
 
   dynamic "source_image_reference" {
     for_each = var.source_image_reference[*]
@@ -22,40 +45,17 @@ resource "azurerm_linux_virtual_machine" "vpn" {
     }
   }
 
-  admin_username = "vpn"
-  admin_ssh_key {
-    username   = "vpn"
-    public_key = var.ssh_admin_rsa_public_key
-  }
-
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 
-  tags = var.tags
-}
-
-resource "azurerm_network_interface" "vpn_public" {
-  name                = "${terraform.workspace}-vpn-public-nic"
-  resource_group_name = var.resource_group_name
-  location            = var.az_location
-
-  ip_configuration {
-    name                          = "public"
-    subnet_id                     = var.public_subnet.id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.vpn.id
+  admin_username                  = "vpn"
+  disable_password_authentication = true
+  admin_ssh_key {
+    username   = "vpn"
+    public_key = var.ssh_admin_rsa_public_key
   }
-
-  tags = var.tags
-}
-
-resource "azurerm_public_ip" "vpn" {
-  name                = "${terraform.workspace}-vpn-ip"
-  resource_group_name = var.resource_group_name
-  location            = var.az_location
-  allocation_method   = "Static"
 
   tags = var.tags
 }
@@ -75,28 +75,6 @@ resource "azurerm_network_security_group" "vpn_public_sg" {
     destination_port_range     = "22"
     source_address_prefix      = var.ssh_admin_ip
     destination_address_prefix = "*"
-  }
-
-  tags = var.tags
-}
-
-resource "azurerm_network_interface_security_group_association" "vpn_public_sg" {
-  network_interface_id      = azurerm_network_interface.vpn_public.id
-  network_security_group_id = azurerm_network_security_group.vpn_public_sg.id
-}
-
-resource "azurerm_network_interface" "vpn_private" {
-  name                = "${terraform.workspace}-vpn-private-nic"
-  resource_group_name = var.resource_group_name
-  location            = var.az_location
-
-  # important for vpn usage
-  enable_ip_forwarding = true
-
-  ip_configuration {
-    name                          = "private"
-    subnet_id                     = var.private_subnet.id
-    private_ip_address_allocation = "Dynamic"
   }
 
   tags = var.tags
