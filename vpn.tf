@@ -14,7 +14,6 @@ module "openvpn_connector" {
   resource_group_name = azurerm_resource_group.this.name
   az_location         = azurerm_resource_group.this.location
 
-  openvpn_region_id       = "Sydney"
   openvpn_connector_token = var.openvpn_connector_token
 
   ssh_admin_ip             = "127.0.0.1/32"

@@ -11,10 +11,6 @@ variable "az_location" {
   type = string
 }
 
-variable "openvpn_region_id" {
-  type = string
-}
-
 variable "openvpn_connector_token" {
   type = string
 }
