@@ -4,8 +4,10 @@ resource "azurerm_kubernetes_cluster" "this" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
-  dns_prefix              = "${terraform.workspace}-k8s-cluster"
-  private_cluster_enabled = true
+  dns_prefix                 = "cluster"
+  dns_prefix_private_cluster = "cluster"
+  private_dns_zone_id        = azurerm_private_dns_zone.private_zone.id
+  private_cluster_enabled    = true
 
   kubernetes_version = var.kubernetes_version
 
