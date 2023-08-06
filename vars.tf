@@ -38,3 +38,7 @@ variable "cluster_sku_tier" {
   type    = string
   default = "Free" # Free or Standard
 }
+
+variable "ssh_admin_ip" {
+  type = string
+}

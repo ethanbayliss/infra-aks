@@ -16,7 +16,7 @@ module "openvpn_connector" {
 
   openvpn_connector_token = var.openvpn_connector_token
 
-  ssh_admin_ip             = "127.0.0.1/32"
+  ssh_admin_ip             = var.ssh_admin_ip
   ssh_admin_rsa_public_key = var.ssh_rsa_key
 
   vm_size                = "Standard_B1s"
