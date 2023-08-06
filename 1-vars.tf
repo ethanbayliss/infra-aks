@@ -42,3 +42,11 @@ variable "cluster_sku_tier" {
 variable "ssh_admin_ip" {
   type = string
 }
+
+variable "address_space" {
+  default = {
+    parent_subnet  = "10.69.0.0/16"
+    private_subnet = "10.69.8.0/21"
+    public_subnet  = "10.69.16.0/21"
+  }
+}

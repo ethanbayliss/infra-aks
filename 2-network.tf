@@ -3,7 +3,7 @@ resource "azurerm_virtual_network" "this" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
 
-  address_space = ["10.69.0.0/16"]
+  address_space = [var.address_space.parent_subnet]
 
   tags = var.tags
 }
@@ -13,7 +13,7 @@ resource "azurerm_subnet" "private" {
   resource_group_name  = azurerm_resource_group.this.name
 
   virtual_network_name = azurerm_virtual_network.this.name
-  address_prefixes     = ["10.69.8.0/21"]
+  address_prefixes     = [var.address_space.private_subnet]
 }
 
 resource "azurerm_subnet" "public" {
@@ -21,7 +21,7 @@ resource "azurerm_subnet" "public" {
   resource_group_name  = azurerm_resource_group.this.name
 
   virtual_network_name = azurerm_virtual_network.this.name
-  address_prefixes     = ["10.69.16.0/21"]
+  address_prefixes     = [var.address_space.public_subnet]
 }
 
 resource "azurerm_nat_gateway" "this" {
