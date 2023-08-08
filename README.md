@@ -6,9 +6,9 @@ Playground for aks cluster with Terraform
 - Private Cluster with Endpoint in Terraform defined vnet
 - OpenVPN CloudConnexa connection via VM connector
 - Customizable address space
+- DNS to cluster is working while on VPN
 
 ## In-progress
-- DNS to cluster is working while on VPN
 
 ## Todo
 - Azure AD workload identity with Azure Kubernetes Service (AKS) https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview
