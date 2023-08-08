@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "this" {
-  name     = "${terraform.workspace}-rg"
+  name     = "${var.cluster_name}-rg"
   location = var.location
 
   tags = var.tags

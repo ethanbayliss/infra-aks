@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine_scale_set" "vpn-connector" {
-  name                 = "${terraform.workspace}-vpn-connector"
+  name                 = "${var.name}"
   resource_group_name  = var.resource_group_name
   location             = var.az_location
   computer_name_prefix = "vpn-connector"
@@ -7,7 +7,9 @@ resource "azurerm_linux_virtual_machine_scale_set" "vpn-connector" {
   sku       = "Standard_B1s"
   instances = 1
 
-  user_data = base64encode(templatefile("${path.module}/src/vpn_userdata.sh.tpl",{TOKEN = var.openvpn_connector_token}))
+  user_data = base64encode(templatefile("${path.module}/src/vpn_userdata.sh.tpl",{
+    TOKEN = var.openvpn_connector_token
+  }))
 
   network_interface {
     name                 = "vpn-connector-private"

@@ -1,5 +1,5 @@
 resource "azurerm_virtual_network" "this" {
-  name                = "${terraform.workspace}-network"
+  name                = "${var.cluster_name}-network"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
 
@@ -9,7 +9,7 @@ resource "azurerm_virtual_network" "this" {
 }
 
 resource "azurerm_subnet" "private" {
-  name                 = "${terraform.workspace}-private"
+  name                 = "${var.cluster_name}-private"
   resource_group_name  = azurerm_resource_group.this.name
 
   virtual_network_name = azurerm_virtual_network.this.name
@@ -17,7 +17,7 @@ resource "azurerm_subnet" "private" {
 }
 
 resource "azurerm_subnet" "public" {
-  name                 = "${terraform.workspace}-public"
+  name                 = "${var.cluster_name}-public"
   resource_group_name  = azurerm_resource_group.this.name
 
   virtual_network_name = azurerm_virtual_network.this.name
@@ -25,7 +25,7 @@ resource "azurerm_subnet" "public" {
 }
 
 resource "azurerm_nat_gateway" "this" {
-  name                = "${terraform.workspace}-nat"
+  name                = "${var.cluster_name}-nat"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   sku_name            = "Standard" # must match public IP sku
@@ -34,7 +34,7 @@ resource "azurerm_nat_gateway" "this" {
 }
 
 resource "azurerm_public_ip" "nat" {
-  name                = "${terraform.workspace}-nat-ip"
+  name                = "${var.cluster_name}-nat-ip"
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   allocation_method   = "Static" # must be static for Standard sku

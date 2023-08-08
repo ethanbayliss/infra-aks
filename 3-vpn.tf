@@ -10,7 +10,7 @@ variable "openvpn_connector_token" {
 module "openvpn_connector" {
   source = "./modules/openvpn_connector"
 
-  name                = "${terraform.workspace}-vpn"
+  name                = "${var.cluster_name}-vpn"
   resource_group_name = azurerm_resource_group.this.name
   az_location         = azurerm_resource_group.this.location
 
