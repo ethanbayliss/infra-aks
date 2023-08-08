@@ -21,3 +21,9 @@ resource "azurerm_private_dns_zone_virtual_network_link" "example" {
   tags = var.tags
 }
 
+resource "azurerm_role_assignment" "example" {
+  scope                = azurerm_private_dns_zone.private_zone.id
+  role_definition_name = "Private DNS Zone Contributor"
+  principal_id         = azurerm_user_assigned_identity.aks.principal_id
+}
+
