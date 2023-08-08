@@ -30,7 +30,7 @@ variable "default_node_pool" {
 # See https://learn.microsoft.com/en-us/azure/aks/supported-kubernetes-versions?tabs=azure-cli#aks-kubernetes-release-calendar
 variable "kubernetes_version" {
   type    = string
-  default = "1.27"
+  default = "1.26"
 }
 
 variable "cluster_sku_tier" {
