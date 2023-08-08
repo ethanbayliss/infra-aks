@@ -47,7 +47,7 @@ resource "azurerm_private_endpoint" "kubernetes_api" {
   tags = var.tags
 }
 
-resource "azurerm_dns_a_record" "example" {
+resource "azurerm_dns_a_record" "kubernetes_api" {
   name                = "cluster"
   zone_name           = azurerm_dns_zone.public_zone.name
   resource_group_name = azurerm_resource_group.this.name
