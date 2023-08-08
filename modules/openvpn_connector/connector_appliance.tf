@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine_scale_set" "vpn-connector" {
-  name                 = "${var.name}"
+  name                 = "${var.name}-vpn"
   resource_group_name  = var.resource_group_name
   location             = var.az_location
   computer_name_prefix = "vpn-connector"

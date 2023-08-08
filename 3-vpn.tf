@@ -10,7 +10,7 @@ variable "openvpn_connector_token" {
 module "openvpn_connector" {
   source = "./modules/openvpn_connector"
 
-  name                = "${var.cluster_name}-vpn"
+  name                = "${var.cluster_name}"
   resource_group_name = azurerm_resource_group.this.name
   az_location         = azurerm_resource_group.this.location
 
@@ -18,14 +18,6 @@ module "openvpn_connector" {
 
   ssh_admin_ip             = var.ssh_admin_ip
   ssh_admin_rsa_public_key = var.ssh_rsa_key
-
-  vm_size                = "Standard_B1s"
-  source_image_reference = {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-gen2"
-    version   = "latest"
-  }
 
   public_subnet  = azurerm_subnet.public
   private_subnet = azurerm_subnet.private
