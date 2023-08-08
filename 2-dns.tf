@@ -26,4 +26,3 @@ resource "azurerm_role_assignment" "example" {
   role_definition_name = "Private DNS Zone Contributor"
   principal_id         = azurerm_user_assigned_identity.aks.principal_id
 }
-
