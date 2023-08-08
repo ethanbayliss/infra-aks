@@ -62,7 +62,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "vpn-connector" {
 }
 
 resource "azurerm_network_security_group" "vpn_public_sg" {
-  name                = "${terraform.workspace}-vpn-public-sg"
+  name                = "${var.name}-vpn-public"
   resource_group_name = var.resource_group_name
   location            = var.az_location
 
