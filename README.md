@@ -8,7 +8,7 @@ Playground for aks cluster with Terraform
 - Customizable address space
 
 ## In-progress
-- Private DNS to cluster is working while on VPN
+- DNS to cluster is working while on VPN
 
 ## Todo
 - Azure AD workload identity with Azure Kubernetes Service (AKS) https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview
