@@ -15,6 +15,7 @@ Playground for aks cluster with Terraform
 - Azure AD workload identity with Azure Kubernetes Service (AKS) https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview
 - Autoscaling
 - Secrets manager?
+- auto-update node pool
 
 # Usage
 1. 
