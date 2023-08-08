@@ -5,7 +5,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   resource_group_name = azurerm_resource_group.this.name
 
   dns_prefix_private_cluster = "cluster"
-  private_dns_zone_id        = azurerm_private_dns_zone.private_zone.id
+  private_dns_zone_id        = "System"
   private_cluster_enabled    = true
 
   kubernetes_version = var.kubernetes_version
@@ -24,14 +24,6 @@ resource "azurerm_kubernetes_cluster" "this" {
   oidc_issuer_enabled       = true
 
   role_based_access_control_enabled = true
-
-  tags = var.tags
-}
-
-resource "azurerm_user_assigned_identity" "aks" {
-  name                = "${terraform.workspace}"
-  resource_group_name = azurerm_resource_group.this.name
-  location            = azurerm_resource_group.this.location
 
   tags = var.tags
 }
