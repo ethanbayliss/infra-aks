@@ -22,4 +22,4 @@ DEBIAN_FRONTEND=noninteractive apt install -y iptables-persistent
 
 # token in CloudConnexa 
 # https://github.com/OpenVPN/openvpn-connector-setup
-openvpn-connector-setup --token ${TOKEN}
+openvpn-connector-setup --token '${TOKEN}'
