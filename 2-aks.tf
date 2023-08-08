@@ -4,7 +4,6 @@ resource "azurerm_kubernetes_cluster" "this" {
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
-  dns_prefix_private_cluster = "cluster"
   private_dns_zone_id        = "System"
   private_cluster_enabled    = true
 
