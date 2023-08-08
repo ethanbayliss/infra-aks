@@ -17,7 +17,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "vpn-connector" {
     enable_ip_forwarding = true
     ip_configuration {
       name      = "private"
-      primary   = false
       subnet_id = var.private_subnet.id
     }
   }
