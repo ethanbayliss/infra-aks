@@ -13,7 +13,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "vpn-connector" {
 
   network_interface {
     name                 = "vpn-connector-private"
-    primary              = false
     enable_ip_forwarding = true
     ip_configuration {
       name      = "private"
