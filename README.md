@@ -9,6 +9,7 @@ Playground for aks cluster with Terraform
 - DNS to cluster is working while on VPN
 
 ## In-progress
+- Running kubectl against private cluster endpoint to do initialization
 - ArgoCD installation
 
 ## Todo
@@ -16,6 +17,7 @@ Playground for aks cluster with Terraform
 - Autoscaling
 - Secrets manager?
 - auto-update node pool
+- documentation, c4 diagram
 
 # Usage
 1. 
