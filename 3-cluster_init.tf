@@ -1,11 +1,11 @@
-module "cluster_init" {
-  source = "./modules/cluster_init"
+# module "cluster_init" {
+#   source = "./modules/cluster_init"
 
-  resource_group_name = azurerm_resource_group.this.name
-  location            = azurerm_resource_group.this.location
-  subnet_id           = azurerm_subnet.private.id
+#   resource_group_name = azurerm_resource_group.this.name
+#   location            = azurerm_resource_group.this.location
+#   subnet_id           = azurerm_subnet.private.id
 
-  input_manifests = ["olleh"]
+#   input_manifests = ["olleh"]
 
-  tags = var.tags
-}
+#   tags = var.tags
+# }
