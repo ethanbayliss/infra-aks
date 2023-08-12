@@ -35,3 +35,7 @@ variable "address_space" {
 variable "kubernetes_version" {
   type = string
 }
+
+variable "kubernetes_config" {
+  type = string
+}

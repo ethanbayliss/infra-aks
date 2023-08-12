@@ -25,12 +25,22 @@ resource "azurerm_container_app" "this" {
   revision_mode                = "Single"
 
   template {
+    min_replicas = 0
+    max_replicas = 1
     container {
       name    = "kubectl"
       image   = "bitnami/kubectl:${var.kubernetes_version}-debian-11"
       cpu     = 1
       memory  = "2Gi"
-      command = ["echo Hi"]
+      command = [
+        "tee -a ~/.kube/config > /dev/null $KUBECONFIG_CONTENTS",
+        "kubectl config get-clusters",
+        "kubectl cluster-info dump",
+      ]
+      env {
+        name  = "KUBECONFIG_CONTENTS"
+        value = var.kubernetes_config
+      }
     }
   }
 
