@@ -12,7 +12,7 @@ resource "azurerm_container_app_environment" "this" {
   name                       = "${var.name}-app-env"
   location                   = var.location
   resource_group_name        = var.resource_group_name
-  # log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
   infrastructure_subnet_id   = azurerm_subnet.private.id
 
   tags = var.tags
