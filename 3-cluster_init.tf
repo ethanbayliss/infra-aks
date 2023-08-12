@@ -1,5 +1,6 @@
 module "cluster_init" {
   source = "./modules/cluster_init"
+  name   = "${var.cluster_name}-kubernetes-init"
 
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
