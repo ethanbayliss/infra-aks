@@ -6,7 +6,8 @@ module "cluster_init" {
   location            = azurerm_resource_group.this.location
   subnet_id           = azurerm_subnet.private.id
 
-  input_manifests = ["olleh"]
+  input_manifests    = ["olleh"]
+  kubernetes_version = var.kubernetes_version
 
   tags = var.tags
 }

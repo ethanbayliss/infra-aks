@@ -31,3 +31,7 @@ variable "address_space" {
     private_subnet = "10.70.8.0/21"
   }
 }
+
+variable "kubernetes_version" {
+  type = string
+}

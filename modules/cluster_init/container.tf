@@ -18,21 +18,21 @@ resource "azurerm_container_app_environment" "this" {
   tags = var.tags
 }
 
-# resource "azurerm_container_app" "this" {
-#   name                         = "${var.name}-container"
-#   container_app_environment_id = azurerm_container_app_environment.this.id
-#   resource_group_name          = var.resource_group_name
-#   revision_mode                = "Single"
+resource "azurerm_container_app" "this" {
+  name                         = "${var.name}-container"
+  container_app_environment_id = azurerm_container_app_environment.this.id
+  resource_group_name          = var.resource_group_name
+  revision_mode                = "Single"
 
-#   template {
-#     container {
-#       name    = "kubectl"
-#       image   = "bitnami/kubectl:1.27-debian-11"
-#       cpu     = 1
-#       memory  = "2Gi"
-#       command = ["echo Hi"]
-#     }
-#   }
+  template {
+    container {
+      name    = "kubectl"
+      image   = "bitnami/kubectl:${var.kubernetes_version}-debian-11"
+      cpu     = 1
+      memory  = "2Gi"
+      command = ["echo Hi"]
+    }
+  }
 
-#   tags = var.tags
-# }
+  tags = var.tags
+}
