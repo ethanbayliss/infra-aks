@@ -33,9 +33,11 @@ resource "azurerm_container_app" "this" {
       cpu     = 1
       memory  = "2Gi"
       command = [
-        "tee -a ~/.kube/config > /dev/null $KUBECONFIG_CONTENTS",
+        "echo $KUBECONFIG_CONTENTS | tee -a config.json > /dev/null ",
+        "export KUBECONFIG=config:config.json",
         "kubectl config get-clusters",
-        "kubectl cluster-info dump",
+        "kubectl config view",
+        "kubectl get nodes",
       ]
       env {
         name  = "KUBECONFIG_CONTENTS"

@@ -1,5 +1,9 @@
 locals {
-  admin_kubeconfig = replace(azurerm_kubernetes_cluster.this.kube_config_raw, azurerm_kubernetes_cluster.this.oidc_issuer_url, azurerm_dns_a_record.kubernetes_api.fqdn)
+  admin_kubeconfig = replace( #replace the endpoint provided in the default kubeconfig with the private endpoint's dns record we made
+    jsonencode(yamldecode(azurerm_kubernetes_cluster.this.kube_config_raw)), 
+    azurerm_kubernetes_cluster.this.private_fqdn, 
+    azurerm_dns_a_record.kubernetes_api.fqdn
+  )
 }
 
 module "cluster_init" {
