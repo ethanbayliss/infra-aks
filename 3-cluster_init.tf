@@ -14,5 +14,9 @@ module "cluster_init" {
   kubernetes_version = var.kubernetes_version
   kubernetes_config  = local.admin_kubeconfig
 
+  depends_on = [ 
+    azurerm_dns_a_record.kubernetes_api
+  ]
+
   tags = var.tags
 }
